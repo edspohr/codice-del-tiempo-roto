@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Códice del tiempo roto - Un e-book de Edmundo Spohr</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados y configuración de Tailwind */
+        body {
+            background-color: #101010;
+            color: #E5E7EB; /* Gris claro para el texto */
+            font-family: 'Lato', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-sans {
+            font-family: 'Lato', sans-serif;
+        }
+
+        /* Estilo del video de fondo */
+        .hero-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(16, 16, 16, 0.75); /* Superposición oscura */
+        }
+
+        /* Animación de resplandor para el botón */
+        .cta-button {
+            transition: all 0.3s ease-in-out;
+        }
+        .cta-button:hover {
+            box-shadow: 0 0 15px 5px rgba(218, 165, 32, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Animación para la flecha de scroll */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(-25%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+            50% {
+                transform: translateY(0);
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+        .animate-bounce-slow {
+            animation: bounce 2s infinite;
+        }
+        
+        /* Animaciones de aparición al hacer scroll */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .is-visible.fade-in-up {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .is-visible.zoom-in {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Botón flotante de WhatsApp */
+        .whatsapp-fab {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .whatsapp-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Animación de palabras del título */
+        .title-word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+    </style>
+</head>
+<body class="antaliasesd">
+
+    <!-- Sección 1: Hero Section -->
+    <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center p-6 overflow-hidden">
+        <div class="hero-video-container">
+            <!-- Video de fondo abstracto y enigmático. -->
+            <video autoplay loop muted playsinline class="hero-video" poster="https://placehold.co/1920x1080/101010/101010?text=Cargando...">
+                <!-- Ruta del video actualizada -->
+                <source src="vid/hero.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        <div class="relative z-10">
+            <h1 id="main-title" class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-wide text-white">
+                El tiempo no es una línea.<br>Son los pedazos de un espejo roto.
+            </h1>
+            <p class="font-sans text-lg md:text-xl mt-6 max-w-2xl mx-auto text-gray-300 scroll-anim" data-anim="fade-in-up">
+                CÓDICE DEL TIEMPO ROTO. <br class="sm:hidden">Un e-book de microrrelatos de ciencia ficción y memoria ancestral.
+            </p>
+            <a href="#comprar" class="cta-button inline-block bg-[#DAA520] text-black font-bold text-lg py-3 px-10 rounded-lg mt-10 transition-transform duration-300 hover:scale-105 scroll-anim" data-anim="fade-in-up" style="transition-delay: 0.2s;">
+                DESCIFRAR EL CÓDICE | USD 5 (CLP 4.990)
+            </a>
+        </div>
+        <a href="#descripcion" class="absolute bottom-10 animate-bounce-slow">
+            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </a>
+    </section>
+
+    <!-- Sección 2: Descripción del Libro -->
+    <section id="descripcion" class="py-20 md:py-32 px-6 lg:px-8">
+        <div class="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div class="scroll-anim" data-anim="slide-in-left">
+                <img src="img/mockup.png" alt="Mockup 3D del e-book Códice del tiempo roto en una tablet" class="w-full max-w-md mx-auto rounded-lg shadow-2xl transition-transform duration-500 hover:scale-105">
+            </div>
+            <div class="scroll-anim" data-anim="slide-in-right">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mb-6">Un viaje a través de un tiempo fracturado.</h2>
+                <p class="font-sans text-lg text-gray-300 leading-relaxed">
+                    Desde la vanidad de un dios que quiebra la creación hasta la chispa de humanidad en una IA que se rebela, 'Códice del tiempo roto' es un viaje poético y brutal a través de un tiempo fracturado.
+                </p>
+                <p class="font-sans text-lg text-gray-300 leading-relaxed mt-4">
+                    En estos microrrelatos, la conquista del Wallmapu rima con la colonización de galaxias distantes, y el lamento de la tierra se convierte en la sinapsis de una inteligencia vegetal. Una obra para quienes intuyen que todas las historias son, en el fondo, la misma historia.
+                </p>
+                <blockquote class="mt-6 border-l-4 border-[#00FF7F] pl-4 italic text-gray-400">
+                    "Este códice se compone de 32 páginas, un formato deliberadamente breve que honra la potencia del microrrelato y te invita a una relectura constante para descifrar nuevos significados."
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 3: Puntos Clave / Beneficios -->
+    <section id="beneficios" class="py-20 md:py-32 px-6 lg:px-8 bg-black bg-opacity-20">
+        <div class="container mx-auto max-w-6xl text-center">
+            <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mb-16 scroll-anim" data-anim="fade-in-up">Una Experiencia Literaria Única</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="scroll-anim p-6 rounded-lg transition-all duration-300 hover:bg-gray-900/50 hover:-translate-y-2" data-anim="zoom-in">
+                    <div class="flex justify-center mb-4">
+                        <svg class="w-16 h-16 text-[#00FF7F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-white mb-2">Un Universo Propio</h3>
+                    <p class="text-gray-400">Sumérgete en una mitología que conecta la creación del cosmos con un futuro posthumano.</p>
+                </div>
+                <div class="scroll-anim p-6 rounded-lg transition-all duration-300 hover:bg-gray-900/50 hover:-translate-y-2" data-anim="zoom-in" style="transition-delay: 0.2s;">
+                    <div class="flex justify-center mb-4">
+                         <svg class="w-16 h-16 text-[#00FF7F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-white mb-2">Poesía y Ciencia Ficción</h3>
+                    <p class="text-gray-400">Descubre una voz narrativa que une la belleza del lenguaje poético con la audacia de la ficción especulativa.</p>
+                </div>
+                <div class="scroll-anim p-6 rounded-lg transition-all duration-300 hover:bg-gray-900/50 hover:-translate-y-2" data-anim="zoom-in" style="transition-delay: 0.4s;">
+                    <div class="flex justify-center mb-4">
+                        <svg class="w-16 h-16 text-[#00FF7F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path><path d="M12 12V9"></path><path d="M12 15v-1"></path><path d="M15 12.5H9"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-white mb-2">Lectura Ágil y Profunda</h3>
+                    <p class="text-gray-400">Cada microrrelato es un universo en sí mismo. Ideal para leer en cualquier momento, pero que resonará por mucho tiempo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 4: Sobre el Autor -->
+    <section id="autor" class="py-20 md:py-32 px-6 lg:px-8">
+        <div class="container mx-auto max-w-4xl grid md:grid-cols-3 gap-10 items-center">
+            <div class="md:col-span-1 scroll-anim" data-anim="slide-in-left">
+                <img src="img/profile.png" alt="Fotografía en blanco y negro del autor, Edmundo Spohr" class="rounded-full w-48 h-48 md:w-full md:h-auto mx-auto object-cover border-2 border-[#00FF7F] shadow-lg shadow-[#00ff7f]/20">
+            </div>
+            <div class="md:col-span-2 border-t-2 md:border-t-0 md:border-l-2 border-[#00FF7F] border-opacity-30 pt-8 md:pt-0 md:pl-10 scroll-anim" data-anim="slide-in-right">
+                <h3 class="font-serif text-2xl md:text-3xl font-bold text-white mb-4">Sobre el Autor</h3>
+                <p class="text-gray-300 leading-relaxed">
+                    Edmundo Spohr es un autor chileno que explora las fronteras entre la ciencia ficción, el mito y la memoria histórica. 'Códice del tiempo roto' es su obra debut, un artefacto literario que busca descifrar las heridas del pasado para iluminar los enigmas del futuro.
+                </p>
+                <a href="https://www.linkedin.com/in/edmundo-spohr/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#00FF7F] mt-6 hover:text-white transition-colors duration-300">
+                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"></path></svg>
+                    Conecta en LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 5: CTA Final -->
+    <section id="comprar" class="py-20 md:py-32 px-6 lg:px-8 bg-black bg-opacity-20 text-center">
+        <div class="container mx-auto max-w-3xl scroll-anim" data-anim="zoom-in">
+            <h2 class="font-serif text-4xl md:text-5xl font-bold text-white">Tu copia te está esperando.</h2>
+            <p class="text-lg text-gray-300 mt-4">Recibe acceso instantáneo al e-book y comienza tu viaje por el tiempo roto.</p>
+            <a href="#comprar-ahora" class="cta-button inline-block bg-[#DAA520] text-black font-bold text-xl py-4 px-12 rounded-lg mt-10 transition-transform duration-300 hover:scale-105">
+                COMPRAR AHORA | USD 5 (CLP 4.990)
+            </a>
+        </div>
+    </section>
+
+    <!-- Sección 6: Footer -->
+    <footer class="py-10 px-6 lg:px-8">
+        <div class="container mx-auto max-w-6xl text-center text-gray-500 text-sm">
+            <div class="flex justify-center items-center space-x-6 mb-4">
+                <a href="https://www.linkedin.com/in/edmundo-spohr/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300">LinkedIn</a>
+                <span class="border-l border-gray-600 h-4"></span>
+                <a href="mailto:edmundo@spohr.cl" class="hover:text-white transition-colors duration-300">edmundo@spohr.cl</a>
+            </div>
+            <p>© 2025 Edmundo Spohr. Todos los derechos reservados.</p>
+            <div class="mt-2 space-x-4">
+                 <a href="#" class="hover:text-white transition-colors duration-300">Política de Privacidad</a>
+                 <span>/</span>
+                 <a href="#" class="hover:text-white transition-colors duration-300">Términos y Condiciones</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://wa.me/56900000000?text=Hola%2C%20estoy%20interesado%20en%20el%20e-book%20'Códice%20del%20tiempo%20roto'." target="_blank" rel="noopener noreferrer" class="whatsapp-fab" aria-label="Contactar por WhatsApp">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 4.315 1.731 6.086l.001.004 4.971 4.971z"/></svg>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animación de título por palabras
+            const title = document.getElementById('main-title');
+            const text = title.innerHTML;
+            title.innerHTML = '';
+            const words = text.split(/(\s+|<br>)/);
+
+            words.forEach((word, index) => {
+                if (word.trim() === '') {
+                    title.innerHTML += ' ';
+                } else if (word === '<br>') {
+                    title.innerHTML += '<br>';
+                }
+                else {
+                    const span = document.createElement('span');
+                    span.textContent = word;
+                    span.className = 'title-word';
+                    span.style.transitionDelay = `${index * 0.05}s`;
+                    title.appendChild(span);
+                }
+            });
+
+            setTimeout(() => {
+                const spans = title.querySelectorAll('.title-word');
+                spans.forEach(span => {
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0)';
+                });
+            }, 100);
+            
+            // Animaciones al hacer scroll
+            const animatedElements = document.querySelectorAll('.scroll-anim');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const animationType = entry.target.getAttribute('data-anim');
+                        entry.target.classList.add(animationType, 'is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
